@@ -1,0 +1,11 @@
+Write a solution to find the ids of products that are both low fat and recyclable.
+
+Return the result table in any order. 
+
+Code with SQL:
+   select  product_id
+   from  Products
+   WHERE low_fats ="Y" AND recyclable ="Y";
+
+Code With Pandas:
+  products[(products['low_fats'] ="Y" ) & (products['recyclable'] ="Y" )]['product_id']
