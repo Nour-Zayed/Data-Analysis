@@ -1,0 +1,40 @@
+***Write a solution to show the unique ID of each user, If a user does not have a unique ID replace just show null.
+
+   Return the result table in any order.
+Input: 
+Employees table:
++----+----------+
+| id | name     |
++----+----------+
+| 1  | Alice    |
+| 7  | Bob      |
+| 11 | Meir     |
+| 90 | Winston  |
+| 3  | Jonathan |
++----+----------+
+EmployeeUNI table:
++----+-----------+
+| id | unique_id |
++----+-----------+
+| 3  | 1         |
+| 11 | 2         |
+| 90 | 3         |
++----+-----------+
+Output: 
++-----------+----------+
+| unique_id | name     |
++-----------+----------+
+| null      | Alice    |
+| null      | Bob      |
+| 2         | Meir     |
+| 3         | Winston  |
+| 1         | Jonathan |
++-----------+----------+
+
+
+---->code with SQL 
+SELECT EMPLOYEEUNI.UNIQUE_ID,EMPLOYEES.NAME 
+FROM EMPLOYEES LEFT JOIN EMPLOYEEUNI ON EMPLOYEES.ID=EMPLOYEEUNI.ID;
+
+----> Code with Pandas 
+ employees.merge(employeeuni, on='ID', how='left')[['UNIQUE_ID', 'NAME']]
