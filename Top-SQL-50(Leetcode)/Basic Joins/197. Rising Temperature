@@ -1,0 +1,37 @@
+***Write a solution to find all dates' id with higher temperatures compared to its previous dates (yesterday).
+
+Return the result table in any order.
+
+Input: 
+Weather table:
++----+------------+-------------+
+| id | recordDate | temperature |
++----+------------+-------------+
+| 1  | 2015-01-01 | 10          |
+| 2  | 2015-01-02 | 25          |
+| 3  | 2015-01-03 | 20          |
+| 4  | 2015-01-04 | 30          |
++----+------------+-------------+
+Output: 
++----+
+| id |
++----+
+| 2  |
+| 4  |
++----+
+
+
+---> Code with SQL 
+Select w1.id from Weather w1 join Weather w2 
+on w1.recordDate = date_add(w2.recordDate, interval 1 day)
+where w1.temperature > w2.temperature;
+
+
+----> Code with Pandas 
+weather['recordDate'] = pd.to_datetime(weather['recordDate'])
+result = weather.merge(
+    weather,
+    left_on='recordDate',
+    right_on=weather['recordDate'] + pd.Timedelta(days=1),
+    suffixes=('_w1', '_w2')
+).query('temperature_w1 > temperature_w2')[['id_w1']].rename(columns={'id_w1': 'id'})
